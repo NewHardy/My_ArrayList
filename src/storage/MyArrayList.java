@@ -1,7 +1,9 @@
 package storage;
 
 import java.util.Arrays;
-    public class MyArrayList<T> {
+import java.util.Objects;
+
+public class MyArrayList<T> {
         private T[] storage;
         private int size = 0;
 
@@ -50,22 +52,22 @@ import java.util.Arrays;
             }
             return sb.toString();
         }
-        public boolean delete (int index)
+
+        public void delete(int index)
         {
-            if (storage[index] ==null)
+            Objects.checkIndex(index,size);
+            for (int i = index; i < size-1; i++)
             {
-                return false;
+                storage[i]=storage[i-1];
             }
-            else
-            {
-                storage [index]=null;
-                for (int i = storage.length; i < index; i--)
-                {
-                    T res = storage[i-1];
-                    storage[i-1]=storage[i];
-                    storage[i-2]= res;
-                }
-                return true;
+            storage [size-1]= null;
+            size--;
+        }
+        public void clear()
+        {
+            for (int i = 0; i < size; i++) {
+                storage[i]=null;
             }
+            size=0;
         }
     }
